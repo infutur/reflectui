@@ -1,0 +1,22 @@
+<!-- tree_root -> std_root ---------------------------------------------
+forward templates, because template resolve precedence finds default first 
+----------------------------------------------------------------------->
+%{ define "rui_tree_root"}%
+%{ template "rui_std_root" . }%
+%{ end}%
+
+
+%{ define "rui_tree_struct"}%
+<li class="rui_tree_struct">
+	<span>[+] %{ .Name }% </span>
+	<ul>
+	%{ ruinodes .Style .SubNodes }%	
+    </ul>
+</li>
+%{ end}%
+
+%{ define "rui_tree_default"}%
+<li>
+	<span>%{ .Name }% [%{ .Type }%] : %{ .Value }%</span>
+</li>
+%{ end}%

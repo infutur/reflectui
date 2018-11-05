@@ -1,0 +1,22 @@
+/*------------------------------------------ Std ------------------------------*/ 
+.rui_std_root,
+.rui_std_struct {
+	margin: 10 0 0 20;
+}
+
+.rui_std_default div {
+}
+
+.rui_std_default label{
+	width: var(--std_label_width);
+}
+
+.rui_std_default input {
+	width: var(--std_input_width);
+}
+
+/*------------------------------------------ Tree ------------------------------*/ 
+.rui_tree_struct,
+.rui_tree_struct > ul {
+	list-style:none;
+}

@@ -1,0 +1,23 @@
+<!-- INTERNAL Templates --------------------------------------------------------------->
+%{ define "rui_internal_default"}%
+<div>
+  <ul>
+	<li>Name: %{ .Name }%</li>
+	<li>Label: %{ .Label }%</li>
+	<li>Type: %{ .Type }%</li>
+	<li>Kind: %{ .Kind }%</li>
+	<li>Style: %{ .Style }%</li>
+	<li>Scheme: %{ .Scheme }%</li>
+	<li>Id: %{ .Id }%</li>
+	<li>Idx: %{ .Idx }%</li>
+	<li>TemplateName: %{ .TemplateName }%</li>	
+	<li>Value: %{ .Value }%</li>	
+	%{ $len := len .SubNodes }%
+	<li># Subnodes: %{ $len }%</li>	
+	%{ range $index,$value := .SubNodes }%
+		<li>Subnode (#%{$index}% / %{$len}%):</li>
+		%{ ruinode .Style . }%	
+	%{ end}%		
+  </ul>
+</div>
+%{ end}%

@@ -1,0 +1,96 @@
+%{ define "rui_table_root"}%
+<div>
+<form id="%{.Name}%">
+<!-- 
+action="/action_page.php" method="get"  action="% { .Action } %" method="% { .Method } %"
+-->
+	%{ range .SubNodes }%
+		%{ range .SubNodes }%
+			%{ ruinode "table" . }%	
+		%{ end}%		
+	%{ end}%
+	<button type="submit" class="btn btn-primary">%{.Name}%</button>			
+<!-- 
+form="" formaction="% { .Action } %" formmethod="% { .Method } %"
+-->
+</form>
+</div>
+%{ end}%
+
+%{ define "rui_table_default"}%
+	<div class="form-group row">
+    	<label class="col-sm-2 col-form-label" for="%{ .Id }%">%{ .Label}%</label>
+		<div class="col-sm-10">
+	    	<input  class="form-control" id="%{ .Id }%" placeholder="Default: %{ .Kind }%, %{ .Type }%, %{ .TemplateName }%" value="%{ .Value }%">
+		</div>
+  	</div>
+%{ end}%
+
+%{ define "rui_table_bool"}%
+	<div class="form-group row">
+    	<label class="col-sm-2 col-form-label" for="%{ .Id}%">%{ .Label}%</label>
+		<div class="col-sm-10">
+	    	<input type="checkbox" class="form-control" id="%{ .Id }%" value="true" %{if .Value }%checked%{end}%>		
+		</div>
+  	</div>
+%{ end}%
+
+%{ define "rui_table_struct"}%
+	<div class="form-group row">
+    	<label class="col-sm-2 col-form-label" for="%{ .Id}%">%{ .Label }%</label>
+		<div class="col-sm-10" id="%{ .Id }%">
+			%{ range .SubNodes}%
+				%{ ruinode "table" . }%	
+			%{ end}%		
+		</div>			
+  	</div>
+%{ end}%
+
+%{ define "rui_table_FilePath"}%
+	<div class="form-group row">
+    	<label class="col-sm-2 col-form-label" for="%{ .Id}%">%{ .Label}%</label>
+		<div class="col-sm-10">
+	    	<input type="file" class="form-control" id="%{ .Id }%" value="%{ .Value }%">		
+		</div>
+  	</div>
+%{ end}%
+
+%{ define "rui_table_TagList"}%
+	<div class="form-group row">
+    	<label class="col-sm-2 col-form-label" for="%{ .Id}%">%{ .Label}%</label>	
+		<div id="%{ .Id }%" class="navbarcol-sm-10">
+			<div class="rui_table_TagList">
+				<div class="TagListHeader">
+					<div class="TagListHeaderTitle">%{ .Label}%</div>
+					<button type="button" class="btn">					
+						<a href="#"><img src="/app/img/plus-w.png" alt=""></a>
+					</button>						
+				</div>
+				<ul>
+					%{ range .Value }%
+					<li>
+			            <a href=""><i class="fa fa-bars fa-lg"></i>%{ . }%</a>
+			        </li>
+	    			%{ end }%
+				</ul>
+			</div> 
+		</div>
+  	</div>
+%{ end}%
+
+
+%{ define "rui_table_StarRating"}%
+	<div class="form-group row">
+    	<label class="col-sm-2 col-form-label" for="%{ .Id}%">%{ .Label}%</label>	
+		<div id="%{ .Id }%" class="navbarcol-sm-10 ">
+		<fieldset class="rui_table_StarRating">
+			<input type="radio" id="%{.Id}%-5" name="%{.Name}%" value="5" %{ if eq .Value 5 }% checked %{ end }% /><label class = "full" for="%{.Id}%-5" title="Awesome - 5 stars"></label>
+			<input type="radio" id="%{.Id}%-4" name="%{.Name}%" value="4" %{ if eq .Value 4 }% checked %{ end }% /><label class = "full" for="%{.Id}%-4" title="Pretty good - 4 stars"></label>
+			<input type="radio" id="%{.Id}%-3" name="%{.Name}%" value="3" %{ if eq .Value 3 }% checked %{ end }% /><label class = "full" for="%{.Id}%-3" title="Meh - 3 stars"></label>
+			<input type="radio" id="%{.Id}%-2" name="%{.Name}%" value="2" %{ if eq .Value 2 }% checked %{ end }% /><label class = "full" for="%{.Id}%-2" title="Kinda bad - 2 stars"></label>
+			<input type="radio" id="%{.Id}%-1" name="%{.Name}%" value="1" %{ if eq .Value 1 }% checked %{ end }% /><label class = "full" for="%{.Id}%-1" title="Sucks big time - 1 star"></label>
+		</fieldset>		
+		</div>
+  	</div>
+%{ end}%
+
