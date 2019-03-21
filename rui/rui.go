@@ -198,9 +198,7 @@ func (ruisys *RuiSystem) Load(appTmpl *template.Template, useBuiltIn bool) *temp
 	}
 
 	appTmpl = appTmpl.Funcs(template.FuncMap{
-		ruisys.NodeFuncName:  _ruiNode,
-		ruisys.NodesFuncName: _ruiNodes,
-		ruisys.RuiFuncName:   _ruiRoot,
+		ruisys.RuiFuncName: _rui,
 	})
 
 	if useBuiltIn {
@@ -324,6 +322,21 @@ func _ruiNodes(style string, nodes []*Node) template.HTML {
 }
 func _ruiNode(style string, node *Node) template.HTML {
 	return _ruiNodeSys(_ruiBuiltin, style, node)
+}
+
+func _rui(style string, val interface{}) template.HTML {
+	if val == nil {
+		log.Println("reflectui/rui: execution of nil value")
+		return template.HTML("")
+	}
+
+	if nval, ok := val.(*Node); ok {
+		return _ruiNode(style, nval)
+	} else if nval, ok := val.([]*Node); ok {
+		return _ruiNodes(style, nval)
+	} else {
+		return _ruiRoot(style, val)
+	}
 }
 
 func (ruisys *RuiSystem) _isBType(t string) bool {
@@ -459,14 +472,16 @@ func (ruisys *RuiSystem) ruiReflectNode(sf reflect.StructField, v reflect.Value)
 		node.SubNodes = subNodes
 	case reflect.Map:
 		if keys := v.MapKeys(); len(keys) != 0 {
-			// log.Println("reflect.Map: number of keys:", len(keys))
+			// log.Println("reflect.Map: number of keys:", len(keys), sf.Name, tName)
 			for _, key := range keys {
 				keyVal := v.MapIndex(key)
 				// the key is mapped to the Field Name
-				keyString := fmt.Sprint(key.Interface())
-				keyField := reflect.StructField{Name: keyString}
-				// log.Println("reflect.Map: key", keyString, keyVal)
-				node.SubNodes = append(node.SubNodes, ruisys.ruiReflectNode(keyField, keyVal)...)
+				if key.CanInterface() {
+					keyString := fmt.Sprint(key.Interface())
+					keyField := reflect.StructField{Name: keyString}
+					// log.Println("reflect.Map: key", keyString, keyVal)
+					node.SubNodes = append(node.SubNodes, ruisys.ruiReflectNode(keyField, keyVal)...)
+				}
 			}
 		}
 	case reflect.Array, reflect.Slice:

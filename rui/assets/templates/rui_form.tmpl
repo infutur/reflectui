@@ -1,0 +1,48 @@
+<!-- FORM Templates --------------------------------------------------------------->
+
+%{ define "rui_form_root"}%
+<div class="rui_form_root">
+	%{ $style := .Style }%
+	%{ range .SubNodes }%
+		%{ rui $style .SubNodes }%
+	%{ end}%	
+</div>
+%{ end}%
+
+%{ define "rui_form_struct"}%
+%{ $style := .Style }%
+<div class="rui_form_struct">
+	<b>%{ .Name }%</b>:%{ .Type }%
+	%{ rui $style .SubNodes }%	
+  </div>
+%{ end}%
+
+%{ define "rui_form_map"}%
+%{ template "rui_form_struct" . }%
+%{ end}%
+
+%{ define "rui_form_slice"}%
+<div class="rui_form_slice">
+	%{ rui .Style .SubNodes }%	
+</div>
+%{ end}%
+
+%{ define "rui_form_array"}%
+<div class="rui_form_array">
+%{ rui .Style .SubNodes }%	
+</div>
+%{ end}%
+
+%{ define "rui_form_default"}%
+<div class="rui_form_default">
+	<span>
+	    	<label class="rui_form_default">%{.Label}%</label>
+	    	<input class="rui_form_default" id="%{.Id}%" placeholder="%{.Type}%" value="%{ .Value }%" readonly >
+  	</span>
+</div>
+%{ end}%
+
+%{ define "rui_form_RuiStyleData"}%
+%{ rui .Fields.Style.Value .Fields.Data }%	
+%{ end}%
+

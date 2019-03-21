@@ -6,7 +6,7 @@ action="/action_page.php" method="get"  action="% { .Action } %" method="% { .Me
 -->
 	%{ range .SubNodes }%
 		%{ range .SubNodes }%
-			%{ ruinode "table" . }%	
+			%{ rui "table" . }%	
 		%{ end}%		
 	%{ end}%
 	<button type="submit" class="btn btn-primary">%{.Name}%</button>			
@@ -40,7 +40,7 @@ form="" formaction="% { .Action } %" formmethod="% { .Method } %"
     	<label class="col-sm-2 col-form-label" for="%{ .Id}%">%{ .Label }%</label>
 		<div class="col-sm-10" id="%{ .Id }%">
 			%{ range .SubNodes}%
-				%{ ruinode "table" . }%	
+				%{ rui "table" . }%	
 			%{ end}%		
 		</div>			
   	</div>

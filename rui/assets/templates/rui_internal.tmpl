@@ -16,7 +16,7 @@
 	<li># Subnodes: %{ $len }%</li>	
 	%{ range $index,$value := .SubNodes }%
 		<li>Subnode (#%{$index}% / %{$len}%):</li>
-		%{ ruinode .Style . }%	
+		%{ rui .Style . }%	
 	%{ end}%		
   </ul>
 </div>

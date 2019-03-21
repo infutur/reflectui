@@ -4,7 +4,7 @@
 <div class="rui_std_root">
 	%{ $style := .Style }%
 	%{ range .SubNodes }%
-		%{ ruinodes $style .SubNodes }%
+		%{ rui $style .SubNodes }%
 	%{ end}%	
 </div>
 %{ end}%
@@ -12,9 +12,9 @@
 %{ define "rui_std_struct"}%
 %{ $style := .Style }%
 <div class="rui_std_struct">
-	<b>%{ .Name }%</b>:%{ .Type }%
-	%{ ruinodes $style .SubNodes }%	
-  </div>
+%{.Label}%:<br>
+%{ rui $style .SubNodes }%	
+</div>
 %{ end}%
 
 %{ define "rui_std_map"}%
@@ -22,27 +22,18 @@
 %{ end}%
 
 %{ define "rui_std_slice"}%
-<div class="rui_std_slice">
-	%{ ruinodes .Style .SubNodes }%	
-</div>
+%{ template "rui_std_struct" . }%
 %{ end}%
 
 %{ define "rui_std_array"}%
-<div class="rui_std_array">
-%{ ruinodes .Style .SubNodes }%	
-</div>
+%{ template "rui_std_struct" . }%
 %{ end}%
 
 %{ define "rui_std_default"}%
-<div class="rui_std_default">
-	<span>
-	    	<label class="rui_std_default">%{.Label}%</label>
-	    	<input class="rui_std_default" id="%{.Id}%" placeholder="%{.Type}%" value="%{ .Value }%" readonly >
-  	</span>
-</div>
+<span class="rui_std_default">%{.Label}%: %{ .Value }%<br></span>
 %{ end}%
 
 %{ define "rui_std_RuiStyleData"}%
-%{ ruinode .Fields.Style.Value .Fields.Data }%	
+%{ rui .Fields.Style.Value .Fields.Data }%	
 %{ end}%
 
